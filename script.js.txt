@@ -1,0 +1,72 @@
+let count = 0;
+
+let messages = [
+  "You're just getting started 😎🔥",
+  "Keep going 👀",
+  "You're improving fast 💻",
+  "Future millionaire vibes 👑",
+  "This is your era 🚀"
+];
+
+document.getElementById("clickBtn").onclick = function() {
+
+  count++;
+
+  if (count > 10) {
+    document.getElementById("message").textContent = "Limit reached 😤";
+    return;
+  }
+
+  document.getElementById("count").textContent = "Clicks: " + count;
+
+  let randomIndex = Math.floor(Math.random() * messages.length);
+  document.getElementById("message").textContent = messages[randomIndex];
+
+  let r = Math.floor(Math.random() * 256);
+  let g = Math.floor(Math.random() * 256);
+  let b = Math.floor(Math.random() * 256);
+
+  let randomColor = "rgb(" + r + "," + g + "," + b + ")";
+  document.body.style.backgroundColor = randomColor;
+};
+
+document.getElementById("resetBtn").onclick = function() {
+
+  count = 0;
+
+  document.getElementById("count").textContent = "Clicks: 0";
+  document.getElementById("message").textContent = "Reset done 😌";
+
+  document.body.style.backgroundColor = "#111";
+  document.body.style.color = "white";
+};
+
+
+// 🎮 GAME PART
+let waiting = false;
+let startTime;
+
+document.getElementById("gameBtn").onclick = function() {
+
+  if (!waiting) {
+    document.getElementById("status").textContent = "Wait for green...";
+    document.body.style.backgroundColor = "red";
+
+    waiting = true;
+
+    let randomTime = Math.random() * 3000 + 2000;
+
+    setTimeout(function() {
+      document.body.style.backgroundColor = "green";
+      document.getElementById("status").textContent = "CLICK NOW!";
+      startTime = Date.now();
+      waiting = false;
+    }, randomTime);
+
+  } else {
+    let reactionTime = Date.now() - startTime;
+    document.getElementById("status").textContent = "Your time: " + reactionTime + " ms ⚡";
+    document.body.style.backgroundColor = "#111";
+  }
+
+};
